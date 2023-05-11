@@ -1,0 +1,18 @@
+body{
+    background-color: black;
+    color: antiquewhite;
+}
+button{
+    
+    color: antiquewhite;
+}
+a{
+    text-decoration: none;
+    color: antiquewhite;
+}
+form{
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
