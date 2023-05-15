@@ -1,22 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style/style.css"/>
     <title>Registro</title>
 </head>
-<body>
-    <form action="registro.php" method="post">
-        <label for="cedula">Ingrese su cedula</label>
-        <input type="text" name="cedula" id="cedula" placeholder="1000000000"/>
-        <label for="nombre">Ingrese su nombre</label>
-        <input type="text" name="nombre" id="nombre" placeholder="STIVEN FIGMA CASTRILLON"/>
-        <label for="email">Ingrese su email</label>
-        <input type="email" name="email" id="email" placeholder="DIRECCION@MAIL.COM"/>
-        <label for="celular">Ingrese su celular</label>
-        <input type="number" name="celular" id="celular" placeholder="3001234567"/>
-        <input type="submit" value="Submit"/>
+<body >
+    <form action="registro.php" method="post" class="registro">
+        <div class="registro-contenedor">
+            <label for="cedula">INGRESE SU CEDULA:</label>
+            <input type="text" name="cedula" id="cedula" placeholder="1000000000"/>
+        </div>
+        <div class="registro-contenedor">
+            <label for="nombre">INGRESE SU NOMBRE:</label>
+            <input type="text" name="nombre" id="nombre" placeholder="STIVEN FIGMA CASTRILLON"/>
+        </div>
+        <div class="registro-contenedor">
+            <label for="email">INGRESE SU EMAIL:</label>
+            <input type="email" name="email" id="email" placeholder="DIRECCION@MAIL.COM"/>
+        </div>
+        <div class="registro-contenedor">
+            <label for="celular">INGRESE SU CELULAR:</label>
+            <input type="number" name="celular" id="celular" placeholder="3001234567"/>
+        </div>
+        <input type="submit" value="REGISTRAR" class="btn btn-primary" style="width: 8%;"/>
     </form>
+    <button class="btn btn-primary"><a href="index.html" target="_blank" rel="noopener noreferrer">Inicio</a></button>
 </body>
 </html>
