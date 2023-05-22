@@ -1,7 +1,56 @@
 <?php
-    // $recibido = $_POST['eventos'];
-    // echo "El elemento recibido es: " . $recibido;
+include "conexion.php";
+
+if (isset($_POST['entrada'])) {
+
+    $cedula = $_POST['cedula'];
+    $id_evento = $_POST['id_evento'];
+
+    date_default_timezone_set('America/Bogota');
+
+    $hora_ingreso = date('Y-m-d H:i:s');
+
+    // Realizar la actualización en la base de datos
+    $actualizar_hora_ingreso = "UPDATE inscripcion SET hora_ingreso = '$hora_ingreso' WHERE cedula = $cedula AND id_evento = $id_evento";
+
+    if ($conn->query($actualizar_hora_ingreso) === TRUE) {
+        echo '<script>alert("La hora de entrada ha sido registrada correctamente");</script>';
+    } else {
+        echo '<script>alert("Error al registrar la hora de entrada");</script>';
+    }
+} elseif (isset($_POST['salida'])) {
+
+    $cedula = $_POST['cedula'];
+    $id_evento = $_POST['id_evento'];
+
+    // Verificar si la hora de ingreso está registrada
+    $consulta_hora_ingreso = "SELECT hora_ingreso FROM inscripcion WHERE cedula = $cedula AND id_evento = $id_evento AND hora_ingreso IS NOT NULL ";
+    $resultado_hora_ingreso = $conn->query($consulta_hora_ingreso);
+
+    if ($resultado_hora_ingreso->num_rows > 0) {
+
+        date_default_timezone_set('America/Bogota');
+
+ 
+        $hora_salida = date('Y-m-d H:i:s');
+
+        // Realizar la actualización en la base de datos
+        $actualizar_hora_salida = "UPDATE inscripcion SET hora_salida = '$hora_salida' WHERE cedula = $cedula AND id_evento = $id_evento";
+
+        if ($conn->query($actualizar_hora_salida) === TRUE) {
+            echo '<script>alert("La hora de salida ha sido registrada correctamente.");</script>';
+        } else {
+            echo '<script>alert("Error al registrar la hora de salida");</script>';
+        }
+    } else {
+        echo '<script>alert("No se puede registrar la hora de salida. La hora de ingreso no está registrada.");</script>';
+    }
+}
+
+$consulta_eventos = "SELECT id_evento, nombre FROM evento";
+$resultado_eventos = $conn->query($consulta_eventos);
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,20 +65,22 @@
     <form action="index.php" method="post" >
         <div class="cedula-contenedor">
             <label for="cedula">INGRESE CEDULA:</label>
-            <input type="text" id="cedula" required/>
+            <input type="text" id="cedula" name="cedula" required/>
             <label for="eventos">EVENTOS A LOS QUE ESTÁ INSCRITO:</label>
-            <select name="eventos" id="eventos">
+            <select name="id_evento" id="eventos">
                 <?php 
-                //Asi es como se imprimiria el resultado de la consulta al select, ya queda es que usted coloque las variables que necesite para que en vez de ser option, sean los eventos, y ya
-                echo '<option value="Opcion1"> Option </option>';
-                echo '<option value="Opcion2"> Option2 </option>';
+                    while ($row = $resultado_eventos->fetch_assoc()) {
+                        $id_evento = $row['id_evento'];
+                        $nombre_evento = $row['nombre'];
+                        echo '<option value="' . $id_evento . '">' . $nombre_evento . '</option>';
+                    }
                 ?>
             </select>
         </div>
         <div class="botones-contenedor">
             <input type="submit" value="ENTRADA" name="entrada" class="btn btn-primary">
             <input type="submit" value="SALIDA" name="salida" class="btn btn-primary">
-            <button class="btn btn-primary"><a href="metricas.html" target="_blank" rel="noopener noreferrer">VER METRICAS</a></button>
+            <button class="btn btn-primary"><a href="metricas.php" target="_blank" rel="noopener noreferrer">VER METRICAS</a></button>
         </div>
         <div class="link-registro-contenedor">
             <p>¿Aun no te has registrado?</p>

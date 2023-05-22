@@ -1,3 +1,21 @@
+<?php
+include "conexion.php";
+if (isset($_POST["registrar"])) {
+    $cedula = $_POST["cedula"];
+    $nombre  = $_POST["nombre"];
+    $apellidos  = $_POST["apellidos"];
+    $email = $_POST["email"];
+    $celular = $_POST["celular"];
+
+    $registro_usuario = "INSERT INTO registro (cedula, nombre, apellidos, email, celular) VALUES ('$cedula', '$nombre', '$apellidos', '$email', '$celular');";
+    if ($conn->query($registro_usuario)) {
+        echo '<script>alert("El usuario ha sido registrado exitosamente");</script>';
+    } else {
+        echo '<script>alert("Error al registrar el usuario");</script>';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -16,7 +34,11 @@
         </div>
         <div class="registro-contenedor">
             <label for="nombre">INGRESE SU NOMBRE:</label>
-            <input type="text" name="nombre" id="nombre" placeholder="STIVEN FIGMA CASTRILLON"/>
+            <input type="text" name="nombre" id="nombre" placeholder="STIVEN"/>
+        </div>
+        <div class="registro-contenedor">
+            <label for="apellidos">INGRESE SUS APELLIDOS:</label>
+            <input type="text" name="apellidos" id="apellidos" placeholder="ZAPATA NUÑEZ"/>
         </div>
         <div class="registro-contenedor">
             <label for="email">INGRESE SU EMAIL:</label>

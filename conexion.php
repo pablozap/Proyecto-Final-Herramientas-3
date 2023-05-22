@@ -9,7 +9,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 // Verificar la conexión
 if ($conn) {
-  echo "la conexión se realizo correctamente";
+  //echo "la conexión se realizo correctamente";
 }else {
     die("Conexión fallida: " . mysqli_connect_error());
 }

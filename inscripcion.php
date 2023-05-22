@@ -1,3 +1,34 @@
+<?php
+include "conexion.php";
+
+if(isset($_POST["inscribir"])) {
+    $cedula = $_POST["cedula"];
+    $id_evento = $_POST["id_evento"];
+
+     // Verificar si la cédula existe en la tabla registro
+     $consulta_cedula = "SELECT * FROM registro WHERE cedula = '$cedula'";
+     $resultado_cedula = $conn->query($consulta_cedula);
+ 
+     if ($resultado_cedula->num_rows > 0) {
+         // La cédula existe en la tabla registro, realizar la inscripción
+         $registro_evento = "INSERT INTO inscripcion (id_evento, cedula) VALUES ('$id_evento', '$cedula');";
+         if ($conn->query($registro_evento)) {
+            echo '<script>alert("Ha sido inscrito correctamente");</script>';
+         } else {
+            echo '<script>alert("Error al inscribirse en el evento: ' . mysqli_error($conn) . '");</script>';
+         }
+     } else {
+
+    
+         echo '<script>alert("La cédula proporcionada no se encuentra registrada");</script>';
+     }
+ }
+
+$consulta_eventos = "SELECT id_evento, nombre FROM evento";
+$resultado_eventos = $conn->query($consulta_eventos);
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,17 +42,20 @@
 <body>
     <form action="" method="post">
         <label for="usuario">INGRESE EL USUARIO:</label>
-        <input type="text" name="user" id="usuario" placeholder="Anonymous">
+        <input type="text" name="cedula" id="usuario" placeholder="Anonymous">
         <label for="eventos">EVENTO A INSCRIBIR:</label>
-            <select name="eventos" id="eventos">
+            <select name="id_evento" id="eventos">
                 <?php 
-                //Asi es como se imprimiria el resultado de la consulta al select, ya queda es que usted coloque las variables que necesite para que en vez de ser option, sean los eventos, y ya
-                echo '<option value="Opcion1"> Option </option>';
-                echo '<option value="Opcion2"> Option2 </option>';
+                    while ($row = $resultado_eventos->fetch_assoc()) {
+                        $id_evento = $row['id_evento'];
+                        $nombre_evento = $row['nombre'];
+                        echo '<option value="' . $id_evento . '">' . $nombre_evento . '</option>';
+                    }
                 ?>
             </select>
-            <input type="submit" value="INSCRIBIR" class="btn btn-primary" />
+            <input type="submit" value="INSCRIBIR", name= "inscribir", class="btn btn-primary" />
     </form>
     <button class="btn btn-primary"><a href="index.php" target="_blank" rel="noopener noreferrer">Inicio</a></button>
 </body>
 </html>
+
