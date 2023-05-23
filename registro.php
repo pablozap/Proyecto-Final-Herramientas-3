@@ -1,19 +1,19 @@
 <?php
-include "conexion.php";
-if (isset($_POST["registrar"])) {
-    $cedula = $_POST["cedula"];
-    $nombre  = $_POST["nombre"];
-    $apellidos  = $_POST["apellidos"];
-    $email = $_POST["email"];
-    $celular = $_POST["celular"];
+    include "conexion.php";
+    if (isset($_POST["registrar"])) {
+        $cedula = $_POST["cedula"];
+        $nombre  = $_POST["nombre"];
+        $apellidos  = $_POST["apellidos"];
+        $email = $_POST["email"];
+        $celular = $_POST["celular"];
 
-    $registro_usuario = "INSERT INTO registro (cedula, nombre, apellidos, email, celular) VALUES ('$cedula', '$nombre', '$apellidos', '$email', '$celular');";
-    if ($conn->query($registro_usuario)) {
-        echo '<script>alert("El usuario ha sido registrado exitosamente");</script>';
-    } else {
-        echo '<script>alert("Error al registrar el usuario");</script>';
+        $registro_usuario = "INSERT INTO registro (cedula, nombre, apellidos, email, celular) VALUES ('$cedula', '$nombre', '$apellidos', '$email', '$celular');";
+        if ($conn->query($registro_usuario)) {
+            echo '<script>alert("El usuario ha sido registrado exitosamente");</script>';
+        } else {
+            echo '<script>alert("Error al registrar el usuario");</script>';
+        }
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -30,26 +30,27 @@ if (isset($_POST["registrar"])) {
     <form action="registro.php" method="post" class="registro">
         <div class="registro-contenedor">
             <label for="cedula">INGRESE SU CEDULA:</label>
-            <input type="text" name="cedula" id="cedula" placeholder="1000000000"/>
+            <input type="text" name="cedula" id="cedula" placeholder="1000000000" required/>
         </div>
         <div class="registro-contenedor">
             <label for="nombre">INGRESE SU NOMBRE:</label>
-            <input type="text" name="nombre" id="nombre" placeholder="STIVEN"/>
+            <input type="text" name="nombre" id="nombre" placeholder="STIVEN" required/>
         </div>
         <div class="registro-contenedor">
             <label for="apellidos">INGRESE SUS APELLIDOS:</label>
-            <input type="text" name="apellidos" id="apellidos" placeholder="ZAPATA NUÑEZ"/>
+            <input type="text" name="apellidos" id="apellidos" placeholder="ZAPATA NUÑEZ" required/>
         </div>
         <div class="registro-contenedor">
             <label for="email">INGRESE SU EMAIL:</label>
-            <input type="email" name="email" id="email" placeholder="DIRECCION@MAIL.COM"/>
+            <input type="email" name="email" id="email" placeholder="DIRECCION@MAIL.COM" required/>
         </div>
         <div class="registro-contenedor">
             <label for="celular">INGRESE SU CELULAR:</label>
-            <input type="number" name="celular" id="celular" placeholder="3001234567"/>
+            <input type="number" name="celular" id="celular" placeholder="3001234567" required/>
         </div>
         <input type="submit" value="REGISTRAR" name="registrar" class="btn btn-primary" style="width: 8%;"/>
+        <a href="index.php" rel="noopener noreferrer"><input type="button" value="INICIO" class="btn btn-primary"></a>
     </form>
-    <button class="btn btn-primary"><a href="index.php" target="_blank" rel="noopener noreferrer">Inicio</a></button>
+    
 </body>
 </html>
